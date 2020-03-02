@@ -1,0 +1,42 @@
+/*
+시험 점수를 입력받아 90 ~ 100점은 A, 80 ~ 89점은 B, 70 ~ 79점은 C, 60 ~ 69점은 D, 나머지 점수는 F를 출력하는 프로그램을 작성하시오.
+
+입력
+첫째 줄에 시험 점수가 주어진다. 시험 점수는 0보다 크거나 같고, 100보다 작거나 같은 정수이다.
+*/
+#include <stdio.h>
+
+int main(void){
+    int a;
+    do{scanf("%d", &a);}while(a>100 && a<0);
+    
+    //첫번째 방법
+    if(90<=a && a<=100) printf("A\n"); 
+    else if(80<=a && a<=89) printf("B\n"); 
+ 
+    else if(70<=a && a<=79) printf("C\n"); 
+
+    else if (60<=a && a<=69) printf("D\n");
+ 
+    else printf("F");
+    
+    //두번째 방법
+    if (score >= 90)
+        printf("A\n");
+    else if (score >= 80)
+        printf("B\n");
+    else if (score >= 70)
+        printf("C\n");
+    else if (score >= 60)
+        printf("D\n");
+    else
+        printf("F\n");
+ 
+    return 0;
+}
+/*
+두번째 방법은 위에서부터 조건문을 통해서 걸러지기때문에 ~보다 작다는 적을 필요가 없다.
+
+조건문에서 조건을 쓸 때 10<a<20 같은 식으로 쓰지 못한다.
+
+*/
