@@ -1,0 +1,50 @@
+/* 문제 세 정수 A, B, C가 주어진다. 이때, 두 번째로 큰 정수를 출력하는 프로그램을 작성하시오. 
+
+입력
+첫째 줄에 세 정수 A, B, C가 공백으로 구분되어 주어진다. (1 ≤ A, B, C ≤ 100)
+
+출력
+두 번째로 큰 정수를 출력한다.
+*/
+
+#include <stdio.h>
+
+int main(void){
+    int a,b,c;
+    do{scanf("%d %d %d", &a, &b,&c);}while(1>a && c>100);
+    
+    //첫번째 풀이
+    if(a<b){
+        if(b<c) printf("%d", b);
+        else if(a<c) printf("%d", c);
+        else printf("%d", a);
+    }
+    else if(a<c){
+                
+        if(c<b) printf("%d", c);
+        else if(a<b) printf("%d", b);
+        else printf("%d", a);
+    }
+    else{       //a가 제일 클 때
+        if(c<b) printf("%d", b);
+        else printf("%d", c);
+    }
+    
+    //두번째 풀이(제대로 된 것)
+    if(a<b){
+        if(a<c) 
+            if(b<c) printf("%d", b);
+            else printf("%d", c);
+        else printf("%d", a);
+    }
+
+    else{
+        if(b<c)
+            if(a<c) printf("%d", a);
+            else printf("%d", c);
+        else printf("%d", b);
+    }
+    
+/*첫번째 풀이는 조건을 계속 a<로 해서 쓸데없이 중복된 결과값을 계속 찾았다. 
+어쩐지 결과는 6개가 나와야하는데 왜 8개가.... 앞으론 조심해야겠다
+*/
