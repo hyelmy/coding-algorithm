@@ -1,0 +1,20 @@
+//문제 : (세자리수)x(세자리수) 중간과정 출력하시오
+
+#include <stdio.h>
+
+int main(void){
+    int a, b;
+    do{scanf("%d %d", &a,&b);}while(1000>a>=100 && 1000>b>=100);
+    printf("%d\n", a*(b%10));
+    printf("%d\n", a*((b/10)%10));
+    printf("%d\n", a*(b/100));
+    printf("%d\n", a*b);
+    
+    return 0;
+}
+
+//풀이 : a/b -> 몫, a%b -> 나머지 
+
+
+
+//10의자리수에서 쓸데없이 애먹었다....
