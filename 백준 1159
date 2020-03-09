@@ -1,0 +1,108 @@
+/*
+문제
+상근이는 내일 경기에 나설 선발 명단을 작성해야 한다.
+각 선수의 능력도 알지 못한다. 따라서, 누가 선발인지 기억하기 쉽게 하기 위해 성의 첫 글자가 같은 선수 5명을 선발하려고 한다. 
+만약, 성의 첫 글자가 같은 선수가 5명보다 적다면, 상근이는 내일 있을 친선 경기를 기권하려고 한다.
+
+상근이는 내일 경기를 위해 뽑을 수 있는 성의 첫 글자를 모두 구해보려고 한다.
+
+입력
+첫째 줄에 선수의 수 N (1 ≤ N ≤ 150)이 주어진다. 다음 N개 줄에는 각 선수의 성이 주어진다. (성은 알파벳 소문자로만 이루어져 있고, 최대 30글자이다)
+
+출력
+상근이가 선수 다섯 명을 선발할 수 없는 경우에는 "PREDAJA" (따옴표 없이)를 출력한다. PREDAJA는 크로아티아어로 항복을 의미한다. 선발할 수 있는 경우에는 가능한 성의 첫 글자를 사전순으로 공백없이 모두 출력한다.
+
+
+*/
+
+#include <stdio.h>
+
+int main() {
+    int count = 0;
+    char name[31];
+    int count_name[27] = { 0 };
+    scanf("%d", &count);
+
+    for (int i = 0; i < count; i++) {
+        scanf("%s", &name, sizeof(name));
+        count_name[((int)name[0])-97]++;
+        if (count_name[((int)name[0]) - 97] == 5) {
+            count_name[26]++; 
+        }
+
+    }for (int j = 0; j < 26; j++) {
+        if (count_name[j] >= 5) printf("%c", (char)j+97);
+    }
+    if (count_name[26] <= 0) printf("PREDAJA");
+    
+
+    return 0;
+}
+
+/*
+아스키코드를 대략적으로 알면 쉽게 풀 수 있었던 문제였다. A=65, a=97
+알파벳 개수와 5명이상이 같은 성의 개수 저장할 (26+1)만큼의 배열과 이름을 잠시 저장할 배열을 만든다.
+선수의 수만큼 선수의 이름을 받는다. 이름을 받으면서(최대 150명인데 배열로 다 받으면 용량이 너무커짐->이 경우는 최대한 피해야하는 것 같다.)
+선수 이름의 앞글자(알파벳)를 따와서 해당 아스키코드값을 인덱스로 해서(알파벳의 아스키코드 - 97) 1씩 증가시킨다. 만약 5까지 증가하면 선발 할 수 있는 성이기 때문에
+count[26]에 1을 증가시킨다 
+만약 5까지 증가하는 성의 알파벳이 없으면 항복을 선언한다.
+
+*/
+
+//아스키코드 없이 푸는 방법
+#include <stdio.h>
+#define _CRT_SECURE_NO_WARNINGS
+int main(void) {
+    int n, i, j, number = 0;
+    char player[31];
+    char first[150];
+    int count = 1;
+    char ans[30];
+    int tmp;
+
+
+    scanf("%d", &n);   // 선수의 수
+
+    for (i = 0; i < n; i++) {
+        scanf("%s", &player, sizeof(player));
+        first[i] = player[0];
+    }
+    i = 0;
+    while (1) {
+        count = 1;
+        if (first[i] != '\0') {
+            // 글자 카운트
+            for (j = i + 1; j < n; j++) {
+                if (first[i] == first[j]) {
+                    count++;
+                    first[j] = '\0';
+                }
+            }
+            //count 가 5 이상인지 확인
+            if (count >= 5) {
+                ans[number] = first[i];
+                number++;
+            }
+        }
+        i++;
+        if (i == n) { break; }
+    }
+    for (i = 0; i < number - 1; i++) {
+        for (j = i + 1; j < number; j++) {
+            if (ans[i] > ans[j]) {
+                tmp = ans[i];
+                ans[i] = ans[j];
+                ans[j] = tmp;
+            }
+        }
+    }
+    if (number == 0) { printf("PREDAJA"); }
+    else {
+        for (i = 0; i < number; i++) { printf("%c", ans[i]); }
+    }
+
+    return 0;
+}
+/*
+이 방법 또한 가능한데 맨 밑의 number에서 <=로 하면 쓸데없는 값까지 출력하게 되서 틀렸다고 나온다
+*/
